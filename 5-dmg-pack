@@ -1,0 +1,37 @@
+# get OS major version
+OSXVER=`uname -r | cut -f 1 -d '.'`
+
+VERSION=`eval "/tmp/skl/SynfigStudio.app/Contents/Resources/bin/gimp" -v | cut -d " " -f 6`
+echo Gimp version is: $VERSION
+
+ARCH=`uname -p`
+if [ $OSXVER -lt 9 ]; then
+  FINAL_FILENAME=synfigstudio_"$VERSION"_tiger_"$ARCH"
+else
+  FINAL_FILENAME=synfigstudio_"$VERSION"_leopard_"$ARCH"
+fi
+
+USERNAME="SynfigStudio"
+TRANSITORY_FILENAME="synfig-wla.sparseimage"
+
+echo "Creating and attaching disk image..."
+/usr/bin/hdiutil create -type SPARSE -size 300m -fs HFS+ -volname "$USERNAME" -attach "$TRANSITORY_FILENAME"
+
+echo "Copying files to disk image..."
+cp -R ./output/SynfigStudio.app /Volumes/"$USERNAME"/SynfigStudio.app
+cp -R ./output/LICENSE.txt /Volumes/"$USERNAME"/LICENSE.txt
+
+# open the window so that the icon database is generated
+open /Volumes/"$USERNAME"
+sleep 3
+
+echo "Detaching disk image..."
+/usr/bin/hdiutil detach /Volumes/"$USERNAME"
+
+echo "Compressing disk image..."
+/usr/bin/hdiutil convert -imagekey zlib-level=9 -format UDBZ ./"$TRANSITORY_FILENAME" -o ./"$FINAL_FILENAME"
+
+echo "Removing uncompressed transitory dmg..."
+/bin/rm -f ./"$TRANSITORY_FILENAME"
+
+echo "Done!"
