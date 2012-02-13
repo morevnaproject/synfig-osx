@@ -490,7 +490,7 @@ static OSStatus X11FailedHandler(EventHandlerCallRef theHandlerCall,
     if (odtid) pthread_join(odtid, NULL);
 
     RedFatalAlert("\pFailed to start X11",
-                  "\pGimp.app requires Apple's X11.");
+                  "\pSynfigStudio.app requires Apple's X11.");
 
     return noErr;
 }

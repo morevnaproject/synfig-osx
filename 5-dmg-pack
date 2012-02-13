@@ -1,25 +1,44 @@
+#======= HEADER ===========
+
+set -e
+
+BUILDDIR=~/src/macports/SynfigStudio-app
+MACPORTS=/tmp/skl/SynfigStudio.app/Contents/Resources
+SCRIPTPATH=`dirname "$0"`
+
+if [ ! -e "/tmp/skl/SynfigStudio.app" ]; then
+  bash "${SCRIPTPATH}/1-link-prep"
+fi
+
+export PATH="$MACPORTS/bin:$MACPORTS/sbin:$PATH"
+export SYNFIG_ROOT=${MACPORTS}/
+export SYNFIG_MODULE_LIST=${MACPORTS}/etc/synfig_modules.cfg
+
+#======= HEADER END ===========
+
 # get OS major version
 OSXVER=`uname -r | cut -f 1 -d '.'`
 
-VERSION=`eval "/tmp/skl/SynfigStudio.app/Contents/Resources/bin/gimp" -v | cut -d " " -f 6`
-echo Gimp version is: $VERSION
+VERSION=`synfig --version 2>&1 | cut -d " " -f 2`
+echo Synfig version is: $VERSION
 
 ARCH=`uname -p`
-if [ $OSXVER -lt 9 ]; then
-  FINAL_FILENAME=synfigstudio_"$VERSION"_tiger_"$ARCH"
-else
-  FINAL_FILENAME=synfigstudio_"$VERSION"_leopard_"$ARCH"
-fi
+#if [ $OSXVER -lt 9 ]; then
+#  FINAL_FILENAME=synfigstudio_"$VERSION"_tiger_"$ARCH"
+#else
+#  FINAL_FILENAME=synfigstudio_"$VERSION"_leopard_"$ARCH"
+#fi
+FINAL_FILENAME=synfigstudio_"$VERSION"_"$ARCH"
 
 USERNAME="SynfigStudio"
 TRANSITORY_FILENAME="synfig-wla.sparseimage"
 
 echo "Creating and attaching disk image..."
-/usr/bin/hdiutil create -type SPARSE -size 300m -fs HFS+ -volname "$USERNAME" -attach "$TRANSITORY_FILENAME"
+/usr/bin/hdiutil create -type SPARSE -size 2048m -fs HFS+ -volname "$USERNAME" -attach "$TRANSITORY_FILENAME"
 
 echo "Copying files to disk image..."
-cp -R ./output/SynfigStudio.app /Volumes/"$USERNAME"/SynfigStudio.app
-cp -R ./output/LICENSE.txt /Volumes/"$USERNAME"/LICENSE.txt
+cp -R ~/src/macports/SynfigStudio.app /Volumes/"$USERNAME"/SynfigStudio.app
+cp -R ~/src/macports/SynfigStudio.app/Contents/Resources/share/doc/synfigstudio/COPYING /Volumes/"$USERNAME"/LICENSE.txt
 
 # open the window so that the icon database is generated
 open /Volumes/"$USERNAME"
