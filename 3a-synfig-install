@@ -19,7 +19,11 @@ export SYNFIG_MODULE_LIST=${MACPORTS}/etc/synfig_modules.cfg
 #======= HEADER END ===========
 
 #port install synfig
-port install synfigstudio
+
+#We should do that, otherwise python won't build:
+[ ! -e /Applications/MacPorts ] || mv /Applications/MacPorts /Applications/MacPorts.bak
+
+port install synfigstudio || true
 
 #synfig -q installer_logo.sif -o installer_logo.png --time 0
 #synfig(294) [23:51:01] info: Loading modules from /tmp/skl/#SynfigStudio.app/Contents/Resources/etc/synfig_modules.cfg
@@ -39,3 +43,9 @@ cd -
 cp -R ~/src/macports/synfig-build/images/* "/tmp/skl/SynfigStudio.app/Contents/Resources/var/macports/build/_Users_svp_src_macports_SynfigStudio-app_Contents_Resources_var_macports_sources_rsync.macports.org_release_tarballs_ports_graphics_synfigstudio/synfigstudio/work/synfigstudio-0.63.04/images"
 
 port install synfigstudio
+
+#restore Applications/MacPorts dir
+if [ -e /Applications/MacPorts.bak ]; then
+	rm -rf /Applications/MacPorts
+	mv /Applications/MacPorts.bak /Applications/MacPorts
+fi
