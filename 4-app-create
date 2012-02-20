@@ -68,13 +68,12 @@ SYNFIGAPP="$DIR/SynfigStudio-new-app/Contents/Resources"
 
 cp -R "$SCRIPTPATH/app-template" "$DIR/SynfigStudio-new-app"
 
-cd "$SCRIPTPATH"/LauncherCode
-xcodebuild -configuration Deployment
-cd -
-cp -R "$SCRIPTPATH/LauncherCode/build/Deployment/ScriptExec.app/Contents/Resources"  "$SYNFIGAPP"
-mkdir -p "$DIR/SynfigStudio-new-app/Contents/MacOS"
-cp -R "$SCRIPTPATH/LauncherCode/build/Deployment/ScriptExec.app/Contents/MacOS/ScriptExec "$SYNFIGAPP/../MacOS/SynfigStudio"
-
+#cd "$SCRIPTPATH"/LauncherCode
+#xcodebuild -configuration Deployment
+#cd -
+#cp -R "$SCRIPTPATH/LauncherCode/build/Deployment/ScriptExec.app/Contents/Resources"  "$SYNFIGAPP"
+#mkdir -p "$DIR/SynfigStudio-new-app/Contents/MacOS"
+#cp -R "$SCRIPTPATH/LauncherCode/build/Deployment/ScriptExec.app/Contents/MacOS/ScriptExec "$SYNFIGAPP/../MacOS/SynfigStudio"
 
 # copy binaries from gimp-launcher 
 # In MacPorts 1.7 there will be a config option
