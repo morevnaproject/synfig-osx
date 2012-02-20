@@ -68,7 +68,7 @@ export PATH="$MACPORTS/bin:$MACPORTS/sbin:$PATH"
 sudo chown -R $UID "$BUILDDIR"
 
 # modifiy macports configuration
-echo "+universal +no_x11 +quartz" > $MACPORTS/etc/macports/variants.conf
+# echo "+universal +no_x11 +quartz" > $MACPORTS/etc/macports/variants.conf
 
 #cd GimpPorts/ports
 #PORTSDIR=`pwd`
