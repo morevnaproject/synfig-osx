@@ -23,24 +23,31 @@ export SYNFIG_MODULE_LIST=${MACPORTS}/etc/synfig_modules.cfg
 #We should do that, otherwise python won't build:
 [ ! -e /Applications/MacPorts ] || mv /Applications/MacPorts /Applications/MacPorts.bak
 
+port selfupdate
+port upgrade outdated
+
 port install synfigstudio || true
 
 #synfig -q installer_logo.sif -o installer_logo.png --time 0
 #synfig(294) [23:51:01] info: Loading modules from /tmp/skl/#SynfigStudio.app/Contents/Resources/etc/synfig_modules.cfg
 #synfig: warning: Unable to find module "mod_magickpp" (file not found)
 #synfig: warning: Unable to find module "mod_libavcodec" (file not found)
-#synfig(294) [23:51:01] error: Standard Exception: #basic_string::_S_construct NULL not valid
+#synfig(294) [23:51:01] error: Standard Exception: basic_string::_S_construct NULL not valid
 #Unable to load 'installer_logo.sif'.
 #Throwing out job...
 #Nothing to do!
 
-
+#Workaround:
 [ ! -e ~/src/macports/synfig-build ] || rm -rf ~/src/macports/synfig-build
-cp -R "/tmp/skl/SynfigStudio.app/Contents/Resources/var/macports/build/_Users_svp_src_macports_SynfigStudio-app_Contents_Resources_var_macports_sources_rsync.macports.org_release_tarballs_ports_graphics_synfigstudio/synfigstudio/work/synfigstudio-0.63.04" ~/src/macports/synfig-build
+cd /tmp/skl/SynfigStudio.app/Contents/Resources/var/macports/build/
+DIRPATH=`ls _Users_*_var_macports_*_synfigstudio`
+cd -
+VERSION=`synfig --version 2>&1 | cut -d " " -f 2`
+cp -R "/tmp/skl/SynfigStudio.app/Contents/Resources/var/macports/build/$DIRPATH/synfigstudio/work/$VERSIONDIR" ~/src/macports/synfig-build
 cd ~/src/macports/synfig-build/images
 make
 cd -
-cp -R ~/src/macports/synfig-build/images/* "/tmp/skl/SynfigStudio.app/Contents/Resources/var/macports/build/_Users_svp_src_macports_SynfigStudio-app_Contents_Resources_var_macports_sources_rsync.macports.org_release_tarballs_ports_graphics_synfigstudio/synfigstudio/work/synfigstudio-0.63.04/images"
+cp -R ~/src/macports/synfig-build/images/* "/tmp/skl/SynfigStudio.app/Contents/Resources/var/macports/build/$DIRPATH/synfigstudio/work/synfigstudio-$VERSION/images"
 
 port install synfigstudio
 
