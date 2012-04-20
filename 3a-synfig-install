@@ -43,7 +43,7 @@ cd /tmp/skl/SynfigStudio.app/Contents/Resources/var/macports/build/
 DIRPATH=`ls _Users_*_var_macports_*_synfigstudio`
 cd -
 VERSION=`synfig --version 2>&1 | cut -d " " -f 2`
-cp -R "/tmp/skl/SynfigStudio.app/Contents/Resources/var/macports/build/$DIRPATH/synfigstudio/work/$VERSIONDIR" ~/src/macports/synfig-build
+cp -R "/tmp/skl/SynfigStudio.app/Contents/Resources/var/macports/build/$DIRPATH/synfigstudio/work/synfigstudio-$VERSION" ~/src/macports/synfig-build
 cd ~/src/macports/synfig-build/images
 make
 cd -
