@@ -24,10 +24,8 @@ export SYNFIG_MODULE_LIST=${MACPORTS}/etc/synfig_modules.cfg
 [ ! -e /Applications/MacPorts ] || mv /Applications/MacPorts /Applications/MacPorts.bak
 
 port selfupdate
-port upgrade outdated
 
 port install synfigstudio || true
-
 #synfig -q installer_logo.sif -o installer_logo.png --time 0
 #synfig(294) [23:51:01] info: Loading modules from /tmp/skl/#SynfigStudio.app/Contents/Resources/etc/synfig_modules.cfg
 #synfig: warning: Unable to find module "mod_magickpp" (file not found)
@@ -40,7 +38,7 @@ port install synfigstudio || true
 #Workaround:
 [ ! -e ~/src/macports/synfig-build ] || rm -rf ~/src/macports/synfig-build
 cd /tmp/skl/SynfigStudio.app/Contents/Resources/var/macports/build/
-DIRPATH=`ls _Users_*_var_macports_*_synfigstudio`
+DIRPATH=`ls`
 cd -
 VERSION=`synfig --version 2>&1 | cut -d " " -f 2`
 cp -R "/tmp/skl/SynfigStudio.app/Contents/Resources/var/macports/build/$DIRPATH/synfigstudio/work/synfigstudio-$VERSION" ~/src/macports/synfig-build
