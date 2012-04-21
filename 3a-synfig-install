@@ -7,10 +7,8 @@ set -e
 BUILDDIR=~/src/macports/SynfigStudio-app
 MACPORTS=/tmp/skl/SynfigStudio.app/Contents/Resources
 
-if [ ! -e "/tmp/skl/SynfigStudio.app" ]; then
-  export SCRIPTPATH=`dirname "$0"`
-  bash "${SCRIPTPATH}/1-link-prep"
-fi
+export SCRIPTPATH=`dirname "$0"`
+bash "${SCRIPTPATH}/1-link-prep"
 
 export PATH="$MACPORTS/bin:$MACPORTS/sbin:$PATH"
 export SYNFIG_ROOT=${MACPORTS}/
@@ -18,10 +16,14 @@ export SYNFIG_MODULE_LIST=${MACPORTS}/etc/synfig_modules.cfg
 
 #======= HEADER END ===========
 
-#port install synfig
-
 #We should do that, otherwise python won't build:
-[ ! -e /Applications/MacPorts ] || mv /Applications/MacPorts /Applications/MacPorts.bak
+if [ ! -e /Applications/MacPorts ]; then
+   echo "Backing up /Applications/MacPorts dir..."
+   mv /Applications/MacPorts /Applications/MacPorts.bak
+fi
+
+compile_synfig()
+{
 
 port selfupdate
 
@@ -48,9 +50,21 @@ cd -
 cp -R ~/src/macports/synfig-build/images/* "/tmp/skl/SynfigStudio.app/Contents/Resources/var/macports/build/$DIRPATH/synfigstudio/work/synfigstudio-$VERSION/images"
 
 port install synfigstudio
+}
+
+# We need that to be sure that the MacPorts dir will be restored even when the compilation fail
+if ( compile_synfig ); then
+   EXITCODE=0
+else
+   EXITCODE=1
+fi
 
 #restore Applications/MacPorts dir
 if [ -e /Applications/MacPorts.bak ]; then
+	echo "Restoring /Applications/MacPorts dir."
 	rm -rf /Applications/MacPorts
 	mv /Applications/MacPorts.bak /Applications/MacPorts
 fi
+echo "Done."
+
+exit $EXITCODE

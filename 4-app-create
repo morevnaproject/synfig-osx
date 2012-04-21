@@ -25,9 +25,7 @@ BUILDDIR=~/src/macports/SynfigStudio-app
 MACPORTS=/tmp/skl/SynfigStudio.app/Contents/Resources
 SCRIPTPATH=`dirname "$0"`
 
-if [ ! -e "/tmp/skl/SynfigStudio.app" ]; then
-  bash "${SCRIPTPATH}/1-link-prep"
-fi
+bash "${SCRIPTPATH}/1-link-prep"
 
 export PATH="$MACPORTS/bin:$MACPORTS/sbin:$PATH"
 export SYNFIG_ROOT=${MACPORTS}/
@@ -66,12 +64,16 @@ DIR=~/src/macports
 SYNFIGAPP="$DIR/SynfigStudio-new-app/Contents/Resources"
 #GP="$DIR/GimpPorts"
 
+# initial cleanup
+[ ! -e $DIR/SynfigStudio-new-app ] || rm -rf $DIR/SynfigStudio-new-app
+[ ! -e $DIR/SynfigStudio.app ] || rm -rf $DIR/SynfigStudio.app
+
 cp -R "$SCRIPTPATH/app-template" "$DIR/SynfigStudio-new-app"
 
 #cd "$SCRIPTPATH"/LauncherCode
 #xcodebuild -configuration Deployment
 #cd -
-#cp -R "$SCRIPTPATH/LauncherCode/build/Deployment/ScriptExec.app/Contents/Resources/*"  "$SYNFIGAPP"
+#cp -R "$SCRIPTPATH/LauncherCode/build/Deployment/ScriptExec.app/Contents/Resources"  "$SYNFIGAPP"
 #mkdir -p "$DIR/SynfigStudio-new-app/Contents/MacOS"
 #cp -R "$SCRIPTPATH/LauncherCode/build/Deployment/ScriptExec.app/Contents/MacOS/ScriptExec "$SYNFIGAPP/../MacOS/SynfigStudio"
 

@@ -22,10 +22,8 @@
 
 #MP=/tmp/skl/SynfigStudio.app/Contents/Resources
 
-if [ ! -e "/tmp/skl/SynfigStudio.app" ]; then
-  export SCRIPTPATH=`dirname "$0"`
-  bash "${SCRIPTPATH}/1-link-prep"
-fi
+export SCRIPTPATH=`dirname "$0"`
+bash "${SCRIPTPATH}/1-link-prep"
 
 # get OS X version. 8=Tiger, 9=Leopard, 10=Snowleopard
 OS=`uname -r | cut -d "." -f1`

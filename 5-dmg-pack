@@ -8,9 +8,7 @@ BUILDDIR=~/src/macports/SynfigStudio-app
 MACPORTS=/tmp/skl/SynfigStudio.app/Contents/Resources
 SCRIPTPATH=`dirname "$0"`
 
-if [ ! -e "/tmp/skl/SynfigStudio.app" ]; then
-  bash "${SCRIPTPATH}/1-link-prep"
-fi
+bash "${SCRIPTPATH}/1-link-prep"
 
 export PATH="$MACPORTS/bin:$MACPORTS/sbin:$PATH"
 export SYNFIG_ROOT=${MACPORTS}/
