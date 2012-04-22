@@ -107,6 +107,8 @@ port -d selfupdate
 #  cp -R ~/src/macports/GimpPorts/Tiger/ports ~/src/macports/GimpPorts
 #fi
 
+rm /tmp/skl/SynfigStudio.app
+
 # now give some hints
 echo
 echo "Yor MacPorts installation is now ready to build SynfigStudio for Mac OS X."

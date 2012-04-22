@@ -53,4 +53,6 @@ echo "Compressing disk image..."
 echo "Removing uncompressed transitory dmg..."
 /bin/rm -f ./"$TRANSITORY_FILENAME"
 
+rm /tmp/skl/SynfigStudio.app
+
 echo "Done!"

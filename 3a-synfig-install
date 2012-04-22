@@ -65,6 +65,13 @@ if [ -e /Applications/MacPorts.bak ]; then
 	rm -rf /Applications/MacPorts
 	mv /Applications/MacPorts.bak /Applications/MacPorts
 fi
-echo "Done."
+
+if [[ $EXITCODE == 0 ]]; then
+	echo "Completed Succesfully."
+else
+	echo "Error."
+fi
+
+rm /tmp/skl/SynfigStudio.app
 
 exit $EXITCODE

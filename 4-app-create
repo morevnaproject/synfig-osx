@@ -164,6 +164,9 @@ sed -i "" -e "s/are currently installed:/were used to build this package:/g" "$S
 
 cd "$DIR"
 mv "SynfigStudio-new-app" "SynfigStudio.app"
+
+rm /tmp/skl/SynfigStudio.app
+
 echo
 echo "Your new Synfig Studio app bundle should now be ready to run. Enjoy."
 echo "-Zelgadis"
