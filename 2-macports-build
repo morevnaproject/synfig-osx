@@ -24,6 +24,7 @@
 
 export SCRIPTPATH=`dirname "$0"`
 bash "${SCRIPTPATH}/1-link-prep"
+export MACOSX_DEPLOYMENT_TARGET=10.5
 
 # get OS X version. 8=Tiger, 9=Leopard, 10=Snowleopard
 OS=`uname -r | cut -d "." -f1`

@@ -13,6 +13,7 @@ bash "${SCRIPTPATH}/1-link-prep"
 export PATH="$MACPORTS/bin:$MACPORTS/sbin:$PATH"
 export SYNFIG_ROOT=${MACPORTS}/
 export SYNFIG_MODULE_LIST=${MACPORTS}/etc/synfig_modules.cfg
+export MACOSX_DEPLOYMENT_TARGET=10.5
 
 #======= HEADER END ===========
 
